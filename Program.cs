@@ -16,7 +16,7 @@ namespace MentorClass3
             Menu menu = new Menu();
             menu.setCurrentStage(1);
             Db appDb = Db.Initialize();
-            IEnumerable<Course> coursesInDb = appDb.getAllCourses();
+            
 
             bool appIsRunning = true;
             // always perform this when the user is in top menu
@@ -95,17 +95,18 @@ namespace MentorClass3
                 {
                     // we want to calculate grade points for all the courses that have been added
                     double gpa = 0.00d;
-                    
+                    GpaCalc gp = new GpaCalc();
+                    gp.calc();
 
-                    foreach (Course i in appDb.getAllCourses())
-                    {
-                        Menu.PromptUser($"Course Code :{i.CourseCode}, Course Score :  {i.CourseScore.ToString()}, Course Unit : {i.NumberOfUnits}");
-                        if(i.CourseScore>=70)
-                        {
-                            Console.Write($"Course Code :{i.CourseCode}, Course Score :  {i.CourseScore.ToString()}, Course Unit : {i.NumberOfUnits}, Point Value : 5 ");
+                    //foreach (Course i in appDb.getAllCourses())
+                    //{
+                    //    Menu.PromptUser($"Course Code :{i.CourseCode}, Course Score :  {i.CourseScore.ToString()}, Course Unit : {i.NumberOfUnits}");
+                    //    if(i.CourseScore>=70)
+                    //    {
+                    //        Console.Write($"Course Code :{i.CourseCode}, Course Score :  {i.CourseScore.ToString()}, Course Unit : {i.NumberOfUnits}, Point Value : 5 ");
 
-                        }
-                    }
+                    //    }
+                    //}
                     
 
 

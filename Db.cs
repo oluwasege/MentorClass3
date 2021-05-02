@@ -12,7 +12,7 @@ namespace MentorClass3
     public class Db
     {
         private List<Course> CourseTable;
-
+        private static Db _instance;
         private Db()
         {
             this.CourseTable = new List<Course>();
@@ -21,7 +21,12 @@ namespace MentorClass3
 
         public static Db Initialize()
         {
-            return new Db();
+            if (_instance == null)
+            {
+                _instance = new Db();
+            }
+
+            return _instance;
         }
 
         public void AddCourse(Course c)
@@ -42,6 +47,7 @@ namespace MentorClass3
         
         public IEnumerable<Course> getAllCourses()
         {
+           
             return this.CourseTable;
           
         }
