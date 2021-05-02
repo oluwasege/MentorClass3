@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentorClass3", "MentorClass3.csproj", "{4AA13258-DABA-43AA-9165-8840BC96C076}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AA13258-DABA-43AA-9165-8840BC96C076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AA13258-DABA-43AA-9165-8840BC96C076}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AA13258-DABA-43AA-9165-8840BC96C076}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AA13258-DABA-43AA-9165-8840BC96C076}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69698BFD-4479-41D0-A511-600A4D595309}
+	EndGlobalSection
+EndGlobal
