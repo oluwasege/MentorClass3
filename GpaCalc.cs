@@ -7,38 +7,57 @@ namespace MentorClass3
 {
     public class GpaCalc
     {
-        public double gpa { get; private set; }
 
-        private Db courseInDb = Db.Initialize();
+        private readonly Db courseInDb = Db.Initialize();
 
-        
         
 
 
-        public void calc()
+
+        public void CalculateGpa()
         {
-            int totalNumberofCourses = courseInDb.getAllCourses().Count();
-            int totalCourses = 0;
+            int totalNumberOfCourses = courseInDb.getAllCourses().Count();
+            int totalQualityPoint = 0;
             
             int totalCoursesUnit = 0;
 
-            foreach(var i in courseInDb.getAllCourses())
+            //Tells you to enter a course when you select (2)
+            if(totalNumberOfCourses==0)
             {
-                totalCourses += i.getCoursePoint();
+                Console.Clear();
+                Menu.PromptUser("You have not entered an course!!!");
+                Menu.PromptUser("Please Add course");
+                Menu.PromptUser("Press Enter");
+                Console.ReadKey();
             }
-            //Console.WriteLine(totalCourses);
+            else
+            {
+                //logic to calculate the Gpa
+                foreach (var i in courseInDb.getAllCourses())
+                {
+                    int qualityPoint = i.getCoursePoint() * i.NumberOfUnits;
+                    totalQualityPoint += qualityPoint;
+                }
+                //Console.WriteLine(totalCourses);
 
-            foreach(var i in courseInDb.getAllCourses())
-            {
-                totalCoursesUnit += i.NumberOfUnits;
+                foreach (var i in courseInDb.getAllCourses())
+                {
+                    totalCoursesUnit += i.NumberOfUnits;
+                }
+                // Console.WriteLine(totalCoursesUnit);
+                double gpa = Convert.ToDouble(totalQualityPoint) / Convert.ToDouble(totalCoursesUnit);
+                foreach (var i in courseInDb.getAllCourses())
+                {
+                    Console.WriteLine($"\tCourse Code : {i.CourseCode} \tYour score : {i.CourseScore} \tYour Point : {i.getCoursePoint()} ");
+                }
+                Menu.PromptUser("");
+                Menu.PromptUser($"Your Grade Point Average is: {gpa:0.00}");
+                Menu.PromptUser("");
+                Menu.PromptUser("Press Enter");
+                Console.ReadKey();
             }
-            // Console.WriteLine(totalCoursesUnit);
-            double gpa = Convert.ToDouble(totalCourses) / Convert.ToDouble(totalCoursesUnit);
-            foreach(var i in courseInDb.getAllCourses())
-            {
-                Console.WriteLine($"Course Code : {i.CourseCode} \tYour score : {i.CourseScore}\tYour Point : {i.getCoursePoint()} ");
-            }
-            Menu.PromptUser($"Your Grade Point Average is: {gpa}");
+
+            
 
         }
         

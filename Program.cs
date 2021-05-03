@@ -31,7 +31,8 @@ namespace MentorClass3
                     Menu.PromptUser("What Would you like to Do Today : ?");
                     Menu.PromptUser("1. Add Courses To DB : ");
                     Menu.PromptUser("2. Calculate Grade Point Averages Of Courses In Db : ");
-                    Menu.PromptUser("3. Exit");
+                    Menu.PromptUser("3. Delete a Course From DB");
+                    Menu.PromptUser("4. Exit");
                     string selectedMenuOption = Console.ReadLine();
                     switch (selectedMenuOption)
                     {
@@ -44,6 +45,9 @@ namespace MentorClass3
                             menu.setCurrentStage(3);
                             break;
                         case "3":
+                            menu.setCurrentStage(4);
+                            break;
+                        case "4":
                             Environment.Exit(0);
                             break;
                         default:
@@ -72,14 +76,44 @@ namespace MentorClass3
                     {
                         for (int i = 1; i <= numberOfCourses; i++)
                         {
-                            Menu.PromptUser($"Enter A Course Code For Course {i} : ");
+                            Menu.PromptUser($"Enter a Course Code For Course {i} : ");
                             string courseCode = Console.ReadLine();
-                            Menu.PromptUser($"Enter a Score for {courseCode} : ");
-                            double score = Convert.ToDouble(Console.ReadLine());
+                            while(string.IsNullOrEmpty(courseCode))
+                            {
+                                Menu.PromptUser("Course Code cannot be left empty");
+
+                                Menu.PromptUser($"Enter a Course Code For Course {i} : ");
+                                courseCode = Console.ReadLine();
+
+                            }
+                            if(!string.IsNullOrEmpty(courseCode))
+                            {
+                                Menu.PromptUser($"Enter a Score for {courseCode} : ");
+                                string scoreString = Console.ReadLine();
+                                int score;
+                                while(!int.TryParse(scoreString,out score))
+                                {
+                                    Menu.PromptUser("Invalid Input");
+                                    Menu.PromptUser($"Enter a Score for {courseCode} : ");
+                                    scoreString = Console.ReadLine();
+                                }
+                                Menu.PromptUser($"Enter a number Of Units for {courseCode} : ");
+                                string unitsString = Console.ReadLine();
+                                    int units;
+                                    while (!int.TryParse(unitsString, out units))
+                                    {
+                                    Menu.PromptUser("Invalid Input");
+                                    Menu.PromptUser($"Enter a number Of Units for {courseCode} : ");
+                                    unitsString = Console.ReadLine();
+
+                                    }
+                                    appDb.AddCourse(new Course(courseCode, score, units));
+                                
+
+                               
+                                
+                            }
                             
-                            Menu.PromptUser($"Enter a number Of Units for {courseCode} : ");
-                            int units = Convert.ToInt32(Console.ReadLine());
-                            appDb.AddCourse(new Course(courseCode, score, units));
                         }
 
                        
@@ -94,10 +128,11 @@ namespace MentorClass3
                 while (menu.getCurrentStage() == 3)
                 {
                     // we want to calculate grade points for all the courses that have been added
-                    double gpa = 0.00d;
+                    
+                    
                     GpaCalc gp = new GpaCalc();
-                    gp.calc();
-
+                    gp.CalculateGpa();
+                    
                     //foreach (Course i in appDb.getAllCourses())
                     //{
                     //    Menu.PromptUser($"Course Code :{i.CourseCode}, Course Score :  {i.CourseScore.ToString()}, Course Unit : {i.NumberOfUnits}");
@@ -107,7 +142,16 @@ namespace MentorClass3
 
                     //    }
                     //}
-                    
+
+
+                    Console.Clear();
+                    menu.setCurrentStage(1);
+                }
+
+                while(menu.getCurrentStage()==4)
+                {
+                    Delete deletFromDb = new Delete();
+                    deletFromDb.DeleteCourse();
 
 
                     menu.setCurrentStage(1);
